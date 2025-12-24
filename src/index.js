@@ -52,17 +52,12 @@ app.get('/api/health', (req, res) => {
 
 /* -------------------------------- CORS ----------------------------------- */
 
-const FRONTEND_ORIGIN = 'https://newsystemfrontendd-production.up.railway.app';
-
 const corsOptions = {
-  origin: (origin, cb) => {
-    if (!origin) return cb(null, true); // healthcheck / curl
-    if (origin === FRONTEND_ORIGIN) return cb(null, true);
-    return cb(new Error('CORS blocked'), false);
-  },
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: true,
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
+  exposedHeaders: ['Content-Type', 'Authorization'],
   optionsSuccessStatus: 204,
 };
 
